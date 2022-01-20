@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Inicializar / Mensagem') {
       steps {
-        echo 'Esta é a pipeline do site do Anota Aí.'
+        echo 'Esta a pipeline do site do AnotaAi.'
       }
     }
 
