@@ -12,6 +12,8 @@ pipeline {
     stage('Teste') {
       steps {
         echo 'Iniciando teste...'
+        sleep(unit: 'MINUTES', time: 15)
+        junit '*.html'
       }
     }
 
