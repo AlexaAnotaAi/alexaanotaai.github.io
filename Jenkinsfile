@@ -5,14 +5,13 @@ pipeline {
       steps {
         echo 'Esta a pipeline do site do AnotaAi.'
         mail(subject: '[Jenkins] Iniciando pipeline', body: 'Estamos iniciando a pipeline.', to: 'lana.mesquita@ufc.br')
-        cleanWs(cleanWhenSuccess: true)
       }
     }
 
     stage('Teste') {
       post {
         success {
-          mail(subject: '[Jenkins] Deu certo!! ', body: 'Código testado e em produção.', to: 'lana.mesquita@ufc.br')
+          mail(subject: '[Jenkins] Deu certo!! ', body: 'Codigo testado e em prod.', to: 'lana.mesquita@ufc.br')
         }
 
         failure {
@@ -34,6 +33,20 @@ pipeline {
       steps {
         input 'Espera pela confirmacao pra deploy.'
         echo 'Iniciando o deploy.'
+        sh '''      //begin common code 
+        if (fileExists()) {
+          def readcounter = readFile(file: \'version.txt\')
+          readcounter = readcounter.toInteger() +1
+          def version= "Version" + readcounter
+          println(version)
+          writeFile(file: \'version.txt\', text:readcounter.toString())
+        } //if condition
+        else {
+          def counter = 0
+          def data = "Version" + counter
+          writeFile(file: \'version.txt\', text: counter.toString())
+          //currentBuild.result = "FAILURE" 
+        } //else condition'''
       }
     }
 
