@@ -15,7 +15,6 @@ pipeline {
         echo 'Iniciando teste...'
         sleep(unit: 'SECONDS', time: 15)
         build(job: 'unicorn-test', propagate: true)
-        junit '**/build/test-reports/*.xml'
       }
     }
 
