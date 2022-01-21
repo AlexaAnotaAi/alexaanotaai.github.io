@@ -33,10 +33,6 @@ pipeline {
       steps {
         input 'Espera pela confirmacao pra deploy.'
         echo 'Iniciando o deploy.'
-        sh '''          def counter = 0
-          def data = "Version" + counter
-          writeFile(file: \'version.txt\', text: counter.toString())
-'''
       }
     }
 
