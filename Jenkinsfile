@@ -5,12 +5,21 @@ pipeline {
       steps {
         echo 'Esta a pipeline do site do AnotaAi.'
         mail(subject: '[Jenkins] Iniciando pipeline', body: 'Estamos iniciando a pipeline.', to: 'lana.mesquita@ufc.br')
-        git(url: 'https://github.com/AlexaAnotaAi/alexaanotaai.github.io.git', branch: 'develop', credentialsId: 'github-ssh')
         cleanWs(cleanWhenSuccess: true)
       }
     }
 
     stage('Teste') {
+      post {
+        success {
+          mail(subject: '[Jenkins] Deu certo!! ', body: 'Código testado e em produção.', to: 'lana.mesquita@ufc.br')
+        }
+
+        failure {
+          mail(subject: '[Jenkins] Deu ruim!! ', body: 'Veja o Jenkins para identificar o problema.', to: 'lana.mesquita@ufc.br')
+        }
+
+      }
       steps {
         echo 'Iniciando teste...'
         sleep(unit: 'SECONDS', time: 15)
@@ -23,10 +32,13 @@ pipeline {
         branch 'main'
       }
       steps {
-        input 'Espera pela confirmação pra deploy.'
+        input 'Espera pela confirmacao pra deploy.'
         echo 'Iniciando o deploy.'
       }
     }
 
+  }
+  triggers {
+    pollSCM('30 15 * * *')
   }
 }
