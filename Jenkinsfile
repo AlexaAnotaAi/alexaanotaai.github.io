@@ -33,20 +33,10 @@ pipeline {
       steps {
         input 'Espera pela confirmacao pra deploy.'
         echo 'Iniciando o deploy.'
-        sh '''      //begin common code 
-        if (fileExists()) {
-          def readcounter = readFile(file: \'version.txt\')
-          readcounter = readcounter.toInteger() +1
-          def version= "Version" + readcounter
-          println(version)
-          writeFile(file: \'version.txt\', text:readcounter.toString())
-        } //if condition
-        else {
-          def counter = 0
+        sh '''          def counter = 0
           def data = "Version" + counter
           writeFile(file: \'version.txt\', text: counter.toString())
-          //currentBuild.result = "FAILURE" 
-        } //else condition'''
+'''
       }
     }
 
