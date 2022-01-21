@@ -10,22 +10,12 @@ pipeline {
       }
     }
 
-    stage('Test') {
-      parallel {
-        stage('Teste') {
-          steps {
-            echo 'Iniciando teste...'
-            sleep(unit: 'SECONDS', time: 15)
-            junit '*.html'
-          }
-        }
-
-        stage('Teste W3C') {
-          steps {
-            build 'unicorn-test'
-          }
-        }
-
+    stage('Teste') {
+      steps {
+        echo 'Iniciando teste...'
+        sleep(unit: 'SECONDS', time: 15)
+        build 'unicorn-test'
+        junit '**/build/test-reports/*.xml'
       }
     }
 
