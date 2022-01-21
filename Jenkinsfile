@@ -5,7 +5,7 @@ pipeline {
       steps {
         echo 'Esta a pipeline do site do AnotaAi.'
         mail(subject: '[Jenkins] Iniciando pipeline', body: 'Estamos iniciando a pipeline.', to: 'lana.mesquita@ufc.br')
-        git(url: 'https://github.com/AlexaAnotaAi/alexaanotaai.github.io.git', branch: 'main', credentialsId: 'github-ssh')
+        git(url: 'https://github.com/AlexaAnotaAi/alexaanotaai.github.io.git', branch: 'develop', credentialsId: 'github-ssh')
         cleanWs(cleanWhenSuccess: true)
       }
     }
@@ -23,6 +23,7 @@ pipeline {
         branch 'main'
       }
       steps {
+        input 'Espera pela confirmação pra deploy.'
         echo 'Iniciando o deploy.'
       }
     }
